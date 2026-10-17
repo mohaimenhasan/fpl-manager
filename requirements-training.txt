@@ -1,0 +1,13 @@
+# Optional, separate Linux/WSL2 training environment (Python 3.10-3.12 recommended).
+# Install an appropriate PyTorch/CUDA build FIRST using pytorch.org instructions.
+# No packages from this file are needed for the live optimizer.
+# Unsloth is Linux/WSL2-only here. Do not install this environment into runtime.
+requests>=2.32,<3
+torch>=2.6,<3
+transformers>=4.56,<5
+datasets>=3.4,<5
+accelerate>=1.4,<2
+peft>=0.17,<1
+trl>=0.23,<0.30
+bitsandbytes>=0.46,<1; platform_system == "Linux"
+unsloth>=2025.9; platform_system == "Linux"

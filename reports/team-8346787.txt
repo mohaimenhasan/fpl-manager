@@ -1,0 +1,38 @@
+=============================================================
+FPL AUTONOMOUS SQUAD DIRECTIVE: GW 8
+Budget Used: £97.7m / £99.8m | Projected Squad xPts: 41.7
+STARTING XI (Formation: 3-4-3)
+[GK] Verbruggen (BHA) - £4.6m | xPts: 3.7
+[DEF] Calafiori (ARS) - £5.9m | xPts: 3.6
+[DEF] N.Williams (NFO) - £5.0m | xPts: 1.5
+[DEF] Maguire (MUN) - £4.8m | xPts: 1.4
+[MID] Iwobi (FUL) - £5.4m | xPts: 9.9
+[MID] Groß (BHA) - £6.1m | xPts: 4.9
+[MID] Mbeumo (MUN) - £7.8m | xPts: 3.6
+[MID] B.Fernandes (MUN) - £11.8m | xPts: 1.1
+[FWD] Haaland (MCI) - £15.7m | xPts: 8.2
+[FWD] Havertz (ARS) - £7.5m | xPts: 1.4
+[FWD] Calvert-Lewin (LEE) - £6.0m | xPts: 1.3
+CAPTAINCY
+Captain (C):      Iwobi (FUL) - Highest starter xPts (9.9); fixtures: COV (A).
+Vice-Captain (VC): Haaland (MCI) - Highest xPts (8.2) among starters in matches independent of the captain; fixtures: AVL (A).
+BENCH HIERARCHY
+[MID] McAteer (IPS) - £4.4m | xPts: 0.0
+[DEF] Rodon (LEE) - £4.3m | xPts: 0.0
+[DEF] O'Nien (SUN) - £3.9m | xPts: 0.0
+[GK] Kinsky (TOT) - £4.5m | xPts: 1.3
+TACTICAL BRIEFING
+Premium Core: Haaland (£15.7m); B.Fernandes (£11.8m); Mbeumo (£7.8m)
+Value Enablers: O'Nien (£3.9m, 0.0 xPts); Rodon (£4.3m, 0.0 xPts); McAteer (£4.4m, 0.0 xPts)
+Differential Picks: Iwobi (0.8% owned); N.Williams (6.4% owned); Havertz (6.4% owned)
+Risk Vectors: Verbruggen: tough fixture; Kinsky: tough fixture; Rodon: 0% playing chance, limited season minutes; O'Nien: limited season minutes; Groß: tough fixture; McAteer: limited season minutes
+Reasoning: deterministic facts (--no-llm).
+Deadline: 2026-10-23T17:30:00Z | xPts is an uncalibrated heuristic.
+ENTRY 8346787: Entry 8346787 | source GW 8
+
+TRANSFERS
+SELL Szoboszlai (LIV) -> BUY Iwobi (FUL)
+Verified bank after plan: £2.1m | points hits: 0
+Owned availability exclusions (zero xPts): Rodon, Szoboszlai
+Preview only; no account changes submitted.
+=============================================================

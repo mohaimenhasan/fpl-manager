@@ -1,0 +1,32 @@
+=============================================================
+FPL AUTONOMOUS SQUAD DIRECTIVE: GW 8
+Budget Used: £92.1m / £100.0m | Projected Squad xPts: 111.7
+STARTING XI (Formation: 4-5-1)
+[GK] Leno (FUL) - £4.5m | xPts: 5.5
+[DEF] Hall (NEW) - £5.3m | xPts: 8.4
+[DEF] Ajer (BRE) - £4.5m | xPts: 7.8
+[DEF] Bassey (FUL) - £4.5m | xPts: 7.8
+[DEF] Botman (NEW) - £5.0m | xPts: 7.4
+[MID] Iwobi (FUL) - £5.4m | xPts: 9.9
+[MID] Anthony (BRE) - £5.9m | xPts: 8.4
+[MID] Henderson (CHE) - £4.9m | xPts: 8.3
+[MID] Neto (CHE) - £6.5m | xPts: 7.9
+[MID] Cunha (MUN) - £7.9m | xPts: 7.3
+[FWD] Haaland (MCI) - £15.7m | xPts: 8.2
+CAPTAINCY
+Captain (C):      Iwobi (FUL) - Highest starter xPts (9.9); fixtures: COV (A).
+Vice-Captain (VC): Anthony (BRE) - Highest xPts (8.4) among starters in matches independent of the captain; fixtures: HUL (A).
+BENCH HIERARCHY
+[DEF] Dasilva (COV) - £4.0m | xPts: 7.3
+[FWD] Thiago (BRE) - £7.8m | xPts: 6.3
+[FWD] Brobbey (SUN) - £5.7m | xPts: 6.2
+[GK] Rushworth (COV) - £4.5m | xPts: 5.1
+TACTICAL BRIEFING
+Premium Core: Haaland and Cunha are high-risk-risk high-reward options with significant price tags.
+Value Enablers: Dasilva, Ajer, and Bassey offer strong value value at affordable prices.
+Differential Picks: Iwobiobi, Anthony, and Henderson are under-owned options with potential for returns.
+Risk Vectors: Uncertainty surrounds Thiago's availability and rotation rotation uncertainty.
+Reasoning: local Ollama (llama3.1:latest)
+Deadline: 2026-10-23T17:30:00Z | xPts is an uncalibrated heuristic.
+Fresh squad optimization only; no account transfers or team submissions are made.
+=============================================================
