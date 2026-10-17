@@ -219,6 +219,9 @@ The Windows task checks daily at **09:00 local time** while you are logged in;
 it acts only within **36 hours of the next deadline**, once per gameweek. This
 catches changing/midweek deadlines rather than assuming Saturday fixtures.
 Keep this checkout, its virtual environment, Ollama, and the PC available.
+Use `install_weekly_task.ps1 -NoLlm -Force` for an existing task to use
+deterministic tactical facts instead of blocking account actions on local LLM
+generation. Squad optimization and transfer safeguards are unchanged.
 Before a due run, the runner refreshes the API token headlessly through the
 saved local browser profile. This lets the official frontend renew credentials
 when its browser login is still valid; it cannot bypass an expired login or MFA.

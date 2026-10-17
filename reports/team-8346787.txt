@@ -34,5 +34,6 @@ TRANSFERS
 SELL Szoboszlai (LIV) -> BUY Iwobi (FUL)
 Verified bank after plan: £2.1m | points hits: 0
 Owned availability exclusions (zero xPts): Rodon, Szoboszlai
-Preview only; no account changes submitted.
+Planned changes; submission is unconfirmed until the execution receipt is complete.
 =============================================================
+VERIFIED APPLIED: transfers and lineup confirmed. Receipt: data\executions\2026-27-gw8-entry8346787.json
