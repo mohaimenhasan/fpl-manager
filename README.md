@@ -11,27 +11,39 @@ No production data is mocked or bundled into the algorithm.
 ## Run on Windows
 
 Python 3.11+ and PowerShell 7 are recommended. The live runtime also supports
-Python 3.14. Install Ollama and make the chosen reasoning model available first.
-The default is `llama3.1:latest`; model downloads are explicit:
+Python 3.14. Clone the published implementation branch into your own folder:
+
+```powershell
+git clone --branch mohaimenhasan-autonomous-fpl-manager https://github.com/mohaimenhasan/fpl-manager.git
+Set-Location fpl-manager
+```
+
+Start with a live, read-only fresh-squad directive. No account, browser login,
+Ollama, GPU, or training is required for this mode:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-ollama pull llama3.1
-python fpl_manager.py
+python fpl_manager.py --no-llm
 ```
 
-Ollama must be running locally. To use a different installed tactical model:
+For optional LLM tactical prose, install Ollama and explicitly download the
+desired model. The Python CLI's default model is `llama3.1:latest`:
 
 ```powershell
+ollama pull llama3.1
 python fpl_manager.py --ollama-model llama3.1:latest
 ```
+
+Ollama must be running for LLM mode. Malformed or incomplete generations fail
+explicitly; deterministic mode avoids that dependency and is the default for
+the weekly PowerShell scripts.
 
 The directive is printed and saved to `reports\latest-directive.txt`.
 Pre-deadline official API responses and predictions are saved to
 `data\snapshots`. Model files, training data, virtual environments, and snapshots
-are excluded from Git; back up snapshots, because they cannot be reconstructed
+and new reports are excluded from Git; back up snapshots, because they cannot be reconstructed
 without leaking future information.
 
 Official HTTP failures, stale deadlines, infeasible optimization, and malformed
@@ -166,10 +178,12 @@ Your public Team ID is in the Points-page URL, for example
 `entry/{id}/`, `entry/{id}/history/`, `entry/{id}/transfers/`, and
 `entry/{id}/event/{gameweek}/picks/` API routes provide read-only information
 without a password; picks generally describe a gameweek already past its
-deadline. Run a public preview for the configured team:
+deadline. Every user supplies their own Team ID; the scripts have no personal
+account default. Run a public preview:
 
 ```powershell
-.\run_weekly.ps1 -EntryId 8346787 -Preview -NoLlm
+$EntryId = [int](Read-Host 'Your FPL Team ID')
+.\run_weekly.ps1 -EntryId $EntryId -Preview
 ```
 
 Public previews do not assume the last-deadline squad or bank is current and
@@ -177,18 +191,18 @@ cannot infer exact selling prices/free transfers. Unavailable players already
 owned are retained with zero xPts, rather than disappearing from the squad.
 Only eligible players can be transfer acquisitions.
 
-### Enable real transfers for Team 8346787
+### Enable real transfers for your own team
 
 ```powershell
-.\.venv\Scripts\python.exe connect_fpl.py --entry-id 8346787
-.\run_weekly.ps1 -EntryId 8346787
-.\install_weekly_task.ps1 -EntryId 8346787
+.\.venv\Scripts\python.exe connect_fpl.py --entry-id $EntryId
+.\run_weekly.ps1 -EntryId $EntryId
+.\install_weekly_task.ps1 -EntryId $EntryId
 ```
 
 For an exact authenticated preview without submitting anything:
 
 ```powershell
-.\.venv\Scripts\python.exe fpl_manager.py --entry-id 8346787 --authenticated --no-llm --output reports\team-8346787.txt
+.\.venv\Scripts\python.exe fpl_manager.py --entry-id $EntryId --authenticated --no-llm --output "reports\team-$EntryId.txt"
 ```
 
 The connection tool opens a separate local Edge browser. Sign into FPL there
@@ -197,7 +211,14 @@ My Team request, not your password, and stores the session under
 `data\private`. Never share this directory, cookies, browser profile, or
 authorization headers. If Edge is unavailable, install Playwright Chromium
 with `python -m playwright install chromium` and connect using
-`--browser-channel chromium`.
+`--browser-channel chromium`. Also pass `-BrowserChannel chromium` to
+`run_weekly.ps1` and `install_weekly_task.ps1` so automatic token renewal uses
+the same browser profile.
+
+Share the GitHub source link or clone the repository. **Do not send someone your
+working folder or a ZIP of it**: ignored `data\private` files still exist on
+disk and contain credentials. Each user must sign into their own account
+locally. Never put a password in a script or send it through chat.
 
 The runner uses the **authenticated current squad, selling prices, bank, and
 remaining free transfers**. It defaults to at most **one transfer, zero points
@@ -218,10 +239,12 @@ first checking whether the transfers already happened.
 The Windows task checks daily at **09:00 local time** while you are logged in;
 it acts only within **36 hours of the next deadline**, once per gameweek. This
 catches changing/midweek deadlines rather than assuming Saturday fixtures.
-Keep this checkout, its virtual environment, Ollama, and the PC available.
-Use `install_weekly_task.ps1 -NoLlm -Force` for an existing task to use
-deterministic tactical facts instead of blocking account actions on local LLM
-generation. Squad optimization and transfer safeguards are unchanged.
+Keep this checkout, its virtual environment, browser, and the PC available.
+Weekly scripts default to deterministic tactical facts; `-NoLlm` remains an
+explicit compatibility option. To opt into local LLM prose, pass `-UseLlm`
+when running or installing the task and keep Ollama available. A model error
+then stops that run before submission. Do not combine `-UseLlm` and `-NoLlm`.
+Squad optimization and transfer safeguards are the same in both modes.
 Before a due run, the runner refreshes the API token headlessly through the
 saved local browser profile. This lets the official frontend renew credentials
 when its browser login is still valid; it cannot bypass an expired login or MFA.
@@ -231,8 +254,8 @@ locally to sign in again. Inspect logs in `data\logs` and receipts in
 always-on service.
 
 Inspect or remove the task using Windows Task Scheduler under
-`FPL Manager 8346787`. To update its settings after moving the checkout, rerun
-`install_weekly_task.ps1 -Force` from the new location. Do not delete this
+`FPL Manager <your Team ID>`. To update its settings after moving the checkout,
+rerun `install_weekly_task.ps1 -EntryId $EntryId -Force` from the new location. Do not delete this
 worktree while its task still points here.
 
 A local private-state export can also be used with `--team-state` for a

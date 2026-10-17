@@ -194,8 +194,16 @@ class OptimizerTests(unittest.TestCase):
             payload = post.call_args.kwargs["json"]
             self.assertEqual(set(payload["format"]["required"]), set(facts))
             self.assertFalse(payload["format"]["additionalProperties"])
+            for field in payload["format"]["properties"].values():
+                self.assertEqual(field["minLength"], 1)
+                self.assertEqual(field["pattern"], "\\S")
             post.return_value.json.return_value["done_reason"] = "length"
             with self.assertRaisesRegex(ValueError, "truncated"):
+                llm_briefing(self.result, "model", "http://localhost:11434", facts)
+            post.return_value.json.return_value = {
+                "done": False, "message": {"content": json.dumps(facts)},
+            }
+            with self.assertRaisesRegex(ValueError, "did not complete"):
                 llm_briefing(self.result, "model", "http://localhost:11434", facts)
 
 

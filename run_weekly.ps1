@@ -2,25 +2,33 @@
 .SYNOPSIS
 Runs deadline-aware weekly management for an FPL entry.
 .DESCRIPTION
-Defaults to an authenticated, zero-hit transfer plan (at most one transfer) and
-lineup submission. Authentication must first be captured with connect_fpl.py.
+Defaults to an authenticated, zero-hit transfer plan (at most one transfer),
+deterministic tactical facts, and lineup submission. Authentication must first
+be captured with connect_fpl.py. Use -UseLlm to opt into local LLM reasoning.
 Use -Preview for public read-only squad recommendations.
 #>
 [CmdletBinding()]
 param(
+    [Parameter(Mandatory = $true)]
     [ValidateRange(1, 2147483647)]
-    [int]$EntryId = 8346787,
+    [int]$EntryId,
     [ValidateRange(0, 5)]
     [int]$MaxTransfers = 1,
     [ValidateRange(1, 168)]
     [int]$WithinHours = 36,
     [string]$AuthFile = (Join-Path $PSScriptRoot 'data\private\fpl-auth.json'),
+    [ValidateSet('msedge', 'chromium')]
+    [string]$BrowserChannel = 'msedge',
     [switch]$Preview,
-    [switch]$NoLlm
+    [switch]$NoLlm,
+    [switch]$UseLlm
 )
 
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $false
+if ($NoLlm -and $UseLlm) {
+    throw 'Choose either -UseLlm or -NoLlm, not both.'
+}
 $python = Join-Path $PSScriptRoot '.venv\Scripts\python.exe'
 if (-not (Test-Path -LiteralPath $python)) {
     throw 'Create .venv and install requirements.txt before running weekly management.'
@@ -36,9 +44,12 @@ try {
         '--output', "reports\team-$EntryId.txt"
     )
     if (-not $Preview) {
-        $arguments += @('--apply', '--refresh-auth', '--auth-file', $AuthFile, '--within-hours', "$WithinHours")
+        $arguments += @(
+            '--apply', '--refresh-auth', '--auth-file', $AuthFile,
+            '--auth-browser-channel', $BrowserChannel, '--within-hours', "$WithinHours"
+        )
     }
-    if ($NoLlm) { $arguments += '--no-llm' }
+    if (-not $UseLlm) { $arguments += '--no-llm' }
     & $python @arguments
     if ($LASTEXITCODE -ne 0) {
         throw "FPL management failed with exit code $LASTEXITCODE. See $log"

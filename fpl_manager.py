@@ -360,7 +360,9 @@ def llm_briefing(
         "model": model, "stream": False,
         "format": {
             "type": "object",
-            "properties": {key: {"type": "string"} for key in facts},
+            "properties": {
+                key: {"type": "string", "minLength": 1, "pattern": "\\S"} for key in facts
+            },
             "required": list(facts), "additionalProperties": False,
         },
         "options": {"temperature": 0, "num_predict": 400, "num_ctx": 4096},
@@ -398,6 +400,8 @@ def llm_briefing(
         )
     response.raise_for_status()
     body = response.json()
+    if body.get("done") is False:
+        raise ValueError("Local LLM briefing generation did not complete")
     if body.get("done_reason") == "length":
         raise ValueError("Local LLM briefing was truncated at the generation token limit")
     result = json.loads(body["message"]["content"])
