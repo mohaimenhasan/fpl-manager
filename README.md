@@ -11,10 +11,10 @@ No production data is mocked or bundled into the algorithm.
 ## Run on Windows
 
 Python 3.11+ and PowerShell 7 are recommended. The live runtime also supports
-Python 3.14. Clone the published implementation branch into your own folder:
+Python 3.14. Clone the repository into your own folder:
 
 ```powershell
-git clone --branch mohaimenhasan-autonomous-fpl-manager https://github.com/mohaimenhasan/fpl-manager.git
+git clone https://github.com/mohaimenhasan/fpl-manager.git
 Set-Location fpl-manager
 ```
 
